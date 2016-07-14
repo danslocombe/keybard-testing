@@ -8,5 +8,6 @@ echo 'Copying Files'
 cp deploy.html ~/keybard-testing/index.html
 cp -r resources ~/keybard-testing/
 cd ~/keybard-testing
-git commit -am "Build $(date)"
+git add index.html resources -A
+git commit -m "Build $(date)"
 git push
