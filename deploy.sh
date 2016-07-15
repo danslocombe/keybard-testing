@@ -1,13 +1,33 @@
 #!/bin/bash
 
-cd ~/keybard
-echo 'Generating Code'
+# Loads of hardcoded values
+# think this is fine
+
+rm -rf "public/resources"
+rm -rf "public/build"
+rm -f "public/index.html"
+
+srcdir="kb-source"
+
+if [ -d "$srcdir" ]; then
+  rm -rf $srcdir
+fi
+
+echo 'Cloning'
+mkdir $srcdir
+cd $srcdir
+git clone git@bitbucket.org:danslocombe/keybard.git
+
+cd keybard
+
+echo 'Compiling'
 tsc
-./deploy.pl
+perl deploy.pl
+
+
 echo 'Copying Files'
-cp deploy.html ~/keybard-testing/index.html
-cp -r resources ~/keybard-testing/
-cd ~/keybard-testing
-git add index.html resources -A
-git commit -m "Build $(date)"
-git push
+cp index.html ../../public
+cp -r build ../../public
+cp -r resources ../../public
+
+cd ../../
